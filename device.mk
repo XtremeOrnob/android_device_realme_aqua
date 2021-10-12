@@ -46,6 +46,10 @@ PRODUCT_PACKAGES += \
     fstab.mt6765 \
     ktweak.sh \
     set_zram.sh
+    
+# Recovery
+PRODUCT_PACKAGES += \
+    init.recovery.mt6765.rc
 
 # HIDL
 PRODUCT_PACKAGES += \
