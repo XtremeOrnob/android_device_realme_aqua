@@ -157,7 +157,9 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    WifiOverlay 
+    WifiOverlay \
+    android.hardware.wifi.hostapd@1.0 \
+    android.hardware.wifi.hostapd@1.1 
 
 # Privapp-permissions whitelist
 PRODUCT_COPY_FILES += \
