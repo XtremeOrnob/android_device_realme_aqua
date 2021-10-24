@@ -42,7 +42,7 @@ PRODUCT_MODEL := Realme C2
 PRODUCT_MANUFACTURER := realme
 
 # Build FP
-BUILD_FINGERPRINT := "google/coral/coral:11/RQ3A.210905.001/7511028:user/release-keys"
+BUILD_FINGERPRINT := "google/coral/coral:12/SP1A.210812.016.A1/7796139:user/release-keys"
 
 PRODUCT_BUILD_PROP_OVERRIDES := \
     TARGET_DEVICE=aqua \
