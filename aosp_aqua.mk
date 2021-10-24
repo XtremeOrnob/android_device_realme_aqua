@@ -42,4 +42,17 @@ PRODUCT_MODEL := Realme C2
 PRODUCT_MANUFACTURER := realme
 
 # Build FP
-BUILD_FINGERPRINT := "google/sunfish/sunfish:11/RQ2A.210305.006/7119741:user/release-keys"
+BUILD_FINGERPRINT := "google/coral/coral:11/RQ3A.210905.001/7511028:user/release-keys"
+
+PRODUCT_BUILD_PROP_OVERRIDES := \
+    TARGET_DEVICE=aqua \
+    PRODUCT_DEVICE=aqua \
+    PRIVATE_BUILD_DESC="full_oppo6762-user 10 QP1A.190711.020 bedd37e98646d3a1 release-keys"
+
+PRODUCT_GMS_CLIENTID_BASE := android-realme
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint=$(BUILD_FINGERPRINT)
+
+# FaceLock
+TARGET_FACE_UNLOCK_SUPPORTED := true
