@@ -27,20 +27,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 # Inherit some common Aosp stuff
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-# Inherit from RMX1941 device makefile
-$(call inherit-product, device/realme/RMX1941/device.mk)
+# Inherit from aqua device makefile
+$(call inherit-product, device/realme/aqua/device.mk)
 
 # Dimen
 TARGET_SCREEN_HEIGHT := 1560
 TARGET_SCREEN_WIDTH := 720
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := RMX1941
-PRODUCT_NAME := aosp_RMX1941
+PRODUCT_NAME := arrow_aqua
+PRODUCT_DEVICE := aqua
 PRODUCT_BRAND := realme
 PRODUCT_MODEL := Realme C2
 PRODUCT_MANUFACTURER := realme
-PRODUCT_RELEASE_NAME := Realme C2
 
 # Build FP
 BUILD_FINGERPRINT := "google/sunfish/sunfish:11/RQ2A.210305.006/7119741:user/release-keys"

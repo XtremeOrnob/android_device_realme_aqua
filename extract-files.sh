@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=RMX1941
+DEVICE=aqua
 VENDOR=realme
 
 # Load extract_utils and do some sanity checks

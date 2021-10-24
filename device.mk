@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/realme/RMX1941
+DEVICE_PATH := device/realme/aqua
 
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
@@ -106,7 +106,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.RMX1941
+    android.hardware.light@2.0-service.aqua
 
 # Telephony
 PRODUCT_BOOT_JARS += \
@@ -175,4 +175,4 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 -include $(DEVICE_PATH)/configs/mtk_services_log.mk
 
 # Inherit Device Vendor
-$(call inherit-product, vendor/realme/RMX1941/RMX1941-vendor.mk)
+$(call inherit-product, vendor/realme/aqua/aqua-vendor.mk)

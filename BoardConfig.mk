@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/realme/RMX1941
+DEVICE_PATH := device/realme/aqua
 
 # Build Rules
 BUILD_BROKEN_DUP_RULES := true
