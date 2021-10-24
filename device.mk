@@ -115,7 +115,7 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.aqua
 
 # Telephony
-PRODUCT_BOOT_JARS += \
+# PRODUCT_BOOT_JARS += \
     mediatek-common \
     mediatek-framework \
     mediatek-ims-base \
@@ -124,7 +124,7 @@ PRODUCT_BOOT_JARS += \
     mediatek-telephony-base \
     mediatek-telephony-common
 
-PRODUCT_PACKAGES += \
+# PRODUCT_PACKAGES += \
     ImsServiceBase
 
 # ImsInit hack
