@@ -1,4 +1,5 @@
 import /system/etc/init/init.safailnet.rc
+import /vendor/etc/init/hw/init.mt6765.usb.rc
 
 on early-init 
      start adbd
@@ -139,3 +140,89 @@ on property:sys.boot_completed=1
     # to hide Magisk & co.
     chmod 440 /proc/net/unix
     start ktweak
+
+on property:vendor.usb.clear=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/bDeviceClass 0
+    write /config/usb_gadget/g1/bDeviceSubClass 0
+    write /config/usb_gadget/g1/bDeviceProtocol 0
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    write /sys/devices/platform/mt_usb/saving 0
+    setprop vendor.usb.clear 2
+
+#mass_storage,adb,acm
+on property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_acm"
+    write /config/usb_gadget/g1/idProduct 0x2006
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    write /config/usb_gadget/g1/UDC "musb-hdrc"
+
+#acm
+on property:ro.boot.usbconfig=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "acm"
+    write /config/usb_gadget/g1/idProduct 0x2007
+    write /config/usb_gadget/g1/bDeviceClass 02
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC "musb-hdrc"
+
+#singloe modem comport for factory mode
+on property:sys.usb.config=gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x202E
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs1gs3,dual_acm && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs1gs3,dual_acm && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs1gs3_dual_acm"
+    write /config/usb_gadget/g1/idProduct 0x202F
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/acm.gs0 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+    setprop vendor.usb.clear 0
+
+on property:sys.usb.config=gs1gs3 && property:sys.usb.configfs=1
+    start adbd
+    setprop vendor.usb.clear 1
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=gs1gs3 && \
+property:vendor.usb.clear=2 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "gs1gs3"
+    write /config/usb_gadget/g1/idProduct 0x2029
+    write /sys/devices/platform/mt_usb/saving 1
+    symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/acm.gs1 /config/usb_gadget/g1/configs/b.1/f3
+    symlink /config/usb_gadget/g1/functions/acm.gs3 /config/usb_gadget/g1/configs/b.1/f4
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop vendor.usb.clear 0
