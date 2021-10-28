@@ -15,4 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/aosp_aqua.mk
+	$(LOCAL_DIR)/octavi_aqua.mk
+
+COMMON_LUNCH_CHOICES := \
+         octavi_aqua-user \
+         octavi_aqua-eng \
+         octavi_aqua-userdebug
